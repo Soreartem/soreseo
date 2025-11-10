@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+
+Sitemap: https://soreartem.github.io/soreseo/sitemap.xml
