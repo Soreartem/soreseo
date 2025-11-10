@@ -141,24 +141,32 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <a class="nav-link" href="https://soreartem.github.io/soreseo/"
                 >Главная</a
               >
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="./Pricing.html"
-                >Услуги и цены</a
-              >
+              <a class="nav-link" href="./Pricing.html">Услуги и цены</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="./Otz.html">Заказать отзывы</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./Profile.html">Личный кабинет</a>
+            </li>
           </ul>
+
+          <!-- КНОПКА АККАУНТА (динамическая) -->
+          <div
+            class="navbar-nav account-dropdown"
+            id="accountDropdownContainer"
+          >
+            <div class="nav-item dropdown" id="accountDropdown">
+              <!-- Сюда подставится код из auth.js -->
+            </div>
+          </div>
         </div>
       </div>
     </nav>
@@ -303,5 +311,90 @@
         </div>
       </div>
     </footer>
+    <!-- Модальное окно ВХОДА -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Вход в аккаунт</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="loginForm">
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="loginEmail"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Пароль</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="loginPassword"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Войти</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Модальное окно РЕГИСТРАЦИИ -->
+    <div class="modal fade" id="registerModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Регистрация</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="registerForm">
+              <div class="mb-3">
+                <label class="form-label">Имя</label>
+                <input type="text" class="form-control" id="regName" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="regEmail"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Пароль</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="regPassword"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-success w-100">
+                Зарегистрироваться
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Подключаем систему авторизации -->
+    <script src="jesipik.js"></script>
   </body>
 </html>
