@@ -141,6 +141,7 @@ function changePassword(currentPass, newPass) {
 // Запускаем при загрузке страницы
 document.addEventListener("DOMContentLoaded", function () {
   checkAuth();
+  highlightActiveNav(); // Добавляем подсветку навигации
 
   // Назначаем обработчики форм
   document
@@ -195,3 +196,36 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("✅ Профиль обновлен!");
     });
 });
+
+// Функция для подсветки активной вкладки
+function highlightActiveNav() {
+  // Получаем текущий URL
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+  // Убираем активный класс у всех ссылок
+  document.querySelectorAll(".navbar-nav .nav-link").forEach((link) => {
+    link.classList.remove("active");
+    link.removeAttribute("aria-current");
+  });
+
+  // Определяем какая страница активна
+  let activeLink = null;
+
+  if (currentPage === "index.html" || currentPage === "") {
+    activeLink = document.querySelector(
+      'a[href="https://soreartem.github.io/soreseo/"]'
+    );
+  } else if (currentPage === "Pricing.html") {
+    activeLink = document.querySelector('a[href="./Pricing.html"]');
+  } else if (currentPage === "Otz.html") {
+    activeLink = document.querySelector('a[href="./Otz.html"]');
+  } else if (currentPage === "Profile.html") {
+    activeLink = document.querySelector('a[href="./Profile.html"]');
+  }
+
+  // Добавляем активный класс
+  if (activeLink) {
+    activeLink.classList.add("active");
+    activeLink.setAttribute("aria-current", "page");
+  }
+}
