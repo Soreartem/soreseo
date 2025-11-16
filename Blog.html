@@ -161,6 +161,96 @@
         background: #5a6fd8;
       }
     </style>
+    <style>
+      /* Темная тема */
+      body.dark-theme {
+        background: linear-gradient(
+          135deg,
+          #2d3748 0%,
+          #4a5568 100%
+        ) !important;
+        color: #e2e8f0;
+      }
+
+      body.dark-theme .navbar {
+        background-color: rgba(45, 55, 72, 0.95) !important;
+      }
+
+      body.dark-theme .card,
+      body.dark-theme .profile-card,
+      body.dark-theme .price-card,
+      body.dark-theme .blog-card,
+      body.dark-theme .faq-card,
+      body.dark-theme .order-card {
+        background: #2d3748 !important;
+        color: #e2e8f0;
+        border: 1px solid #4a5568;
+      }
+
+      body.dark-theme .btn-primary {
+        background: linear-gradient(45deg, #805ad5, #6b46c1) !important;
+      }
+
+      body.dark-theme .text-muted {
+        color: #a0aec0 !important;
+      }
+
+      body.dark-theme .bg-white {
+        background-color: #2d3748 !important;
+      }
+
+      /* Переключатель темы */
+      .theme-switcher {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 30px;
+        margin-left: 15px;
+      }
+
+      .theme-switcher input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .theme-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #667eea;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+
+      .theme-slider:before {
+        position: absolute;
+        content: "🌙";
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+      }
+
+      input:checked + .theme-slider {
+        background-color: #fbbf24;
+      }
+
+      input:checked + .theme-slider:before {
+        content: "☀️";
+        transform: translateX(30px);
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -179,24 +269,34 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="https://soreartem.github.io/soreseo/"
-                >Главная</a
-              >
+              <a class="nav-link" href="https://soreartem.github.io/soreseo/">
+                <span class="animated-icon">🏠</span> Главная
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./Pricing.html">Услуги и цены</a>
+              <a class="nav-link" href="./Pricing.html">
+                <span class="animated-icon">💰</span> Услуги и цены
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./Otz.html">Заказать отзывы</a>
+              <a class="nav-link" href="./Otz.html">
+                <span class="animated-icon">⭐</span> Заказать отзывы
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="./Blog.html">Блог</a>
+              <a class="nav-link" href="./Blog.html">
+                <span class="animated-icon">📝</span> Блог
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./Faq.html">FAQ</a>
+              <a class="nav-link" href="./Faq.html">
+                <span class="animated-icon">❓</span> FAQ
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./Profile.html">Личный кабинет</a>
+              <a class="nav-link" href="./Profile.html">
+                <span class="animated-icon">👤</span> Личный кабинет
+              </a>
             </li>
           </ul>
           <div

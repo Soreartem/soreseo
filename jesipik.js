@@ -211,16 +211,27 @@ function highlightActiveNav() {
   // Определяем какая страница активна
   let activeLink = null;
 
-  if (currentPage === "index.html" || currentPage === "") {
+  if (
+    currentPage === "index.html" ||
+    currentPage === "" ||
+    currentPage === "soreseo/"
+  ) {
     activeLink = document.querySelector(
       'a[href="https://soreartem.github.io/soreseo/"]'
     );
+    if (!activeLink) {
+      activeLink = document.querySelector('a[href="./index.html"]');
+    }
   } else if (currentPage === "Pricing.html") {
     activeLink = document.querySelector('a[href="./Pricing.html"]');
   } else if (currentPage === "Otz.html") {
     activeLink = document.querySelector('a[href="./Otz.html"]');
   } else if (currentPage === "Profile.html") {
     activeLink = document.querySelector('a[href="./Profile.html"]');
+  } else if (currentPage === "Blog.html") {
+    activeLink = document.querySelector('a[href="./Blog.html"]');
+  } else if (currentPage === "Faq.html") {
+    activeLink = document.querySelector('a[href="./Faq.html"]');
   }
 
   // Добавляем активный класс
