@@ -116,6 +116,158 @@
         padding: 80px 0;
         color: white;
       }
+      /* Hero секция */
+      .hero-section {
+        padding: 100px 0;
+        color: white;
+        position: relative;
+      }
+
+      .hero-stats {
+        margin-top: 3rem;
+      }
+
+      .stat-item {
+        padding: 1rem;
+      }
+
+      .stat-item h3 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-item p {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+      }
+
+      /* Карточки услуг */
+      .service-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        color: white;
+      }
+
+      /* Карточки услуг */
+      .service-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .service-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      /* Новые стили для кнопок в карточках услуг */
+      .service-card .btn {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        border: none;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      }
+
+      .service-card .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        background: linear-gradient(45deg, #764ba2, #667eea);
+      }
+
+      /* Альтернативный вариант - контурные кнопки */
+      .service-card .btn-outline-primary {
+        background: transparent;
+        border: 2px solid #667eea;
+        color: #667eea;
+        box-shadow: none;
+      }
+
+      .service-card .btn-outline-primary:hover {
+        background: #667eea;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      /* Шаги процесса */
+      .step-number {
+        width: 40px;
+        height: 40px;
+        background: #667eea;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+
+      /* Анимации для кнопок в карточках */
+      .btn-animated {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: none;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      }
+
+      .btn-animated:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        color: white;
+        background: linear-gradient(45deg, #764ba2, #667eea);
+      }
+
+      .btn-animated:active {
+        transform: translateY(-1px);
+      }
+
+      /* Эффект свечения при наведении */
+      .btn-animated::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn-animated:hover::before {
+        left: 100%;
+      }
     </style>
   </head>
   <body>
@@ -182,57 +334,178 @@
       </div>
     </nav>
 
+    <!-- Hero секция -->
     <section class="hero-section">
       <div class="container text-center">
-        <h1 class="display-4 fw-bold mb-4">
-          SEO продвижение и накрутка отзывов
-        </h1>
-        <h2 class="h3 mb-4 opacity-75">С гарантией и безопасностью</h2>
-        <img
-          src="img.png"
-          alt="SEO продвижение сайтов"
-          class="img-fluid mb-4 rounded shadow"
-        />
-        <div class="mt-4">
-          <a
-            href="https://t.me/soreartem"
-            target="_blank"
-            class="btn btn-primary btn-lg px-5 py-3"
-          >
-            🚀 Бесплатная консультация
-          </a>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <h1 class="display-4 fw-bold mb-4 fade-in">
+              Профессиональное <span class="text-warning">SEO</span> и
+              управление репутацией
+            </h1>
+            <h2 class="h3 mb-4 opacity-75 fade-in">
+              Повышаем видимость вашего бизнеса в интернете
+            </h2>
+
+            <div class="hero-stats row mt-5 fade-in">
+              <div class="col-md-3 col-6">
+                <div class="stat-item">
+                  <h3 class="text-warning">+87%</h3>
+                  <p>трафика</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="stat-item">
+                  <h3 class="text-warning">24-48ч</h3>
+                  <p>старт работ</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="stat-item">
+                  <h3 class="text-warning">100%</h3>
+                  <p>анонимность</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="stat-item">
+                  <h3 class="text-warning">✓</h3>
+                  <p>гарантия</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 fade-in">
+              <a
+                href="./Pricing.html"
+                class="btn btn-primary btn-lg px-5 py-3 me-3 btn-animated"
+              >
+                🚀 Смотреть услуги
+              </a>
+              <a
+                href="https://t.me/soreartem"
+                target="_blank"
+                class="btn btn-outline-light btn-lg px-5 py-3 btn-animated"
+              >
+                💬 Бесплатная консультация
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- Секция услуг -->
+    <div class="container my-5 py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <h2 class="text-center mb-5 text-white fade-in">
+            Наши ключевые услуги
+          </h2>
+
+          <div class="row g-4">
+            <div class="col-md-4 fade-in">
+              <div class="service-card text-center p-4 h-100">
+                <div class="service-icon mb-3">
+                  <span class="animated-icon floating">⭐</span>
+                </div>
+                <h4>Работа с отзывами</h4>
+                <p>
+                  Управление репутацией на Яндекс Картах, 2ГИС, Авито и других
+                  платформах
+                </p>
+                <a href="./Otz.html" class="btn btn-primary btn-animated">
+                  📖 Узнать подробнее
+                </a>
+              </div>
+            </div>
+
+            <div class="col-md-4 fade-in">
+              <div class="service-card text-center p-4 h-100">
+                <div class="service-icon mb-3">
+                  <span class="animated-icon pulse">📈</span>
+                </div>
+                <h4>SEO продвижение</h4>
+                <p>
+                  Комплексное продвижение сайтов в поисковых системах Яндекс и
+                  Google
+                </p>
+                <a href="./Pricing.html" class="btn btn-primary btn-animated">
+                  📖 Узнать подробнее
+                </a>
+              </div>
+            </div>
+
+            <div class="col-md-4 fade-in">
+              <div class="service-card text-center p-4 h-100">
+                <div class="service-icon mb-3">
+                  <span class="animated-icon spin">🎯</span>
+                </div>
+                <h4>Поведенческие факторы</h4>
+                <p>Улучшение поведенческих метрик для роста позиций в поиске</p>
+                <a href="./Pricing.html" class="btn btn-primary btn-animated">
+                  📖 Узнать подробнее
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Секция процесса работы -->
     <div class="container my-5 py-5 bg-white rounded shadow">
-      <h2 class="text-center mb-5">Почему выбирают нас?</h2>
-      <div class="row">
-        <div class="col-md-4 text-center mb-4">
-          <div class="p-4">
-            <h4>🔒 Анонимно</h4>
-            <p class="mt-3">
-              Полная конфиденциальность ваших данных и безопасность всех
-              операций
-            </p>
-          </div>
-        </div>
-        <div class="col-md-4 text-center mb-4">
-          <div class="p-4">
-            <h4>⚡ Быстро</h4>
-            <p class="mt-3">
-              Результат уже в первые дни работы. Быстрый старт и моментальный
-              эффект
-            </p>
-          </div>
-        </div>
-        <div class="col-md-4 text-center mb-4">
-          <div class="p-4">
-            <h4>💯 Гарантия</h4>
-            <p class="mt-3">
-              Работаем до достижения нужного вам результата. Фиксируем
-              договоренности
-            </p>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <h2 class="text-center mb-5 fade-in">Как мы работаем</h2>
+
+          <div class="row">
+            <div class="col-md-6 mb-4 fade-in">
+              <div class="d-flex">
+                <div class="step-number me-3">1</div>
+                <div>
+                  <h5>Консультация и анализ</h5>
+                  <p class="text-muted">
+                    Бесплатно анализируем вашу ситуацию и предлагаем решение
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-4 fade-in">
+              <div class="d-flex">
+                <div class="step-number me-3">2</div>
+                <div>
+                  <h5>Стратегия и договор</h5>
+                  <p class="text-muted">
+                    Разрабатываем план работ и заключаем договор
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-4 fade-in">
+              <div class="d-flex">
+                <div class="step-number me-3">3</div>
+                <div>
+                  <h5>Реализация</h5>
+                  <p class="text-muted">
+                    Приступаем к работе в течение 24 часов после оплаты
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-4 fade-in">
+              <div class="d-flex">
+                <div class="step-number me-3">4</div>
+                <div>
+                  <h5>Результат и отчет</h5>
+                  <p class="text-muted">
+                    Предоставляем результат и подробный отчет о работе
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

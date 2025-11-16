@@ -1,4 +1,4 @@
-// jesipik.js - простая система авторизации
+// jesipik.js - улучшенная система аккаунтов
 
 let currentUser = null;
 
@@ -22,6 +22,8 @@ function updateNavigation() {
                 👤 ${currentUser.name}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="./Profile.html">📊 Личный кабинет</a></li>
+                <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#" onclick="logout()">🚪 Выйти</a></li>
             </ul>
         `;
@@ -36,23 +38,39 @@ function showLoginButtons() {
             👤 Аккаунт
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Войти</a></li>
-            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Регистрация</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">🔑 Войти</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">📝 Регистрация</a></li>
         </ul>
     `;
 }
 
-// Регистрация
+// Регистрация с проверкой email
 function registerUser(event) {
   event.preventDefault();
 
-  const name = document.getElementById("regName").value;
-  const email = document.getElementById("regEmail").value;
+  const name = document.getElementById("regName").value.trim();
+  const email = document.getElementById("regEmail").value.trim().toLowerCase();
   const password = document.getElementById("regPassword").value;
+
+  // Валидация
+  if (name.length < 2) {
+    showNotification("❌ Имя должно содержать минимум 2 символа", "danger");
+    return false;
+  }
+
+  if (!validateEmail(email)) {
+    showNotification("❌ Введите корректный email", "danger");
+    return false;
+  }
+
+  if (password.length < 6) {
+    showNotification("❌ Пароль должен содержать минимум 6 символов", "danger");
+    return false;
+  }
 
   // Проверяем, нет ли уже пользователя с таким email
   if (localStorage.getItem("user_" + email)) {
-    alert("❌ Пользователь с таким email уже существует");
+    showNotification("❌ Пользователь с таким email уже существует", "danger");
     return false;
   }
 
@@ -63,6 +81,8 @@ function registerUser(event) {
     registeredAt: new Date().toLocaleString(),
     telegram: "",
     orders: [],
+    emailVerified: false,
+    balance: 0,
   };
 
   localStorage.setItem("user_" + email, JSON.stringify(userData));
@@ -73,21 +93,29 @@ function registerUser(event) {
   $("#registerModal").modal("hide");
   document.getElementById("registerForm").reset();
 
-  alert("✅ Регистрация успешна!");
+  showNotification(
+    "✅ Регистрация успешна! Добро пожаловать, " + name + "!",
+    "success"
+  );
 
   // Если мы на странице профиля, обновляем ее
   if (window.location.pathname.includes("Profile.html")) {
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }
 
   return false;
 }
 
-// Вход
+// Вход с проверкой
 function loginUser(event) {
   event.preventDefault();
 
-  const email = document.getElementById("loginEmail").value;
+  const email = document
+    .getElementById("loginEmail")
+    .value.trim()
+    .toLowerCase();
   const password = document.getElementById("loginPassword").value;
 
   const userData = JSON.parse(localStorage.getItem("user_" + email));
@@ -99,14 +127,20 @@ function loginUser(event) {
     updateNavigation();
     $("#loginModal").modal("hide");
     document.getElementById("loginForm").reset();
-    alert("✅ Вход выполнен!");
+
+    showNotification(
+      "✅ Вход выполнен! Добро пожаловать, " + userData.name + "!",
+      "success"
+    );
 
     // Если мы на странице профиля, обновляем ее
     if (window.location.pathname.includes("Profile.html")) {
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   } else {
-    alert("❌ Неверный email или пароль");
+    showNotification("❌ Неверный email или пароль", "danger");
   }
 
   return false;
@@ -117,11 +151,13 @@ function logout() {
   localStorage.removeItem("currentUser");
   currentUser = null;
   showLoginButtons();
-  alert("👋 Вы вышли из системы");
+  showNotification("👋 Вы вышли из системы", "info");
 
   // Если мы на странице профиля, обновляем ее
   if (window.location.pathname.includes("Profile.html")) {
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }
 }
 
@@ -138,64 +174,46 @@ function changePassword(currentPass, newPass) {
   return false;
 }
 
-// Запускаем при загрузке страницы
-document.addEventListener("DOMContentLoaded", function () {
-  checkAuth();
-  highlightActiveNav(); // Добавляем подсветку навигации
+// Валидация email
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
 
-  // Назначаем обработчики форм
-  document
-    .getElementById("registerForm")
-    ?.addEventListener("submit", registerUser);
-  document.getElementById("loginForm")?.addEventListener("submit", loginUser);
+// Система уведомлений
+function showNotification(message, type = "info") {
+  // Создаем контейнер для уведомлений если его нет
+  let container = document.getElementById("notifications-container");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "notifications-container";
+    container.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            max-width: 400px;
+        `;
+    document.body.appendChild(container);
+  }
 
-  // Обработчик формы смены пароля
-  document
-    .getElementById("passwordForm")
-    ?.addEventListener("submit", function (e) {
-      e.preventDefault();
+  const notification = document.createElement("div");
+  notification.className = `alert alert-${type} alert-dismissible fade show`;
+  notification.style.cssText = "margin-bottom: 10px;";
+  notification.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
 
-      const currentPass = document.getElementById("currentPassword").value;
-      const newPass = document.getElementById("newPassword").value;
-      const confirmPass = document.getElementById("confirmPassword").value;
+  container.appendChild(notification);
 
-      if (newPass !== confirmPass) {
-        alert("❌ Новые пароли не совпадают");
-        return;
-      }
-
-      if (newPass.length < 6) {
-        alert("❌ Пароль должен содержать минимум 6 символов");
-        return;
-      }
-
-      if (changePassword(currentPass, newPass)) {
-        alert("✅ Пароль успешно изменен!");
-        document.getElementById("passwordForm").reset();
-      } else {
-        alert("❌ Текущий пароль неверен");
-      }
-    });
-
-  // Обработчик формы профиля
-  document
-    .getElementById("profileForm")
-    ?.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const userData = JSON.parse(localStorage.getItem("currentUser"));
-      userData.name = document.getElementById("profileName").value;
-      userData.telegram = document.getElementById("profileTelegram").value;
-
-      localStorage.setItem("currentUser", JSON.stringify(userData));
-      localStorage.setItem("user_" + userData.email, JSON.stringify(userData));
-
-      // Обновляем навигацию
-      updateNavigation();
-
-      alert("✅ Профиль обновлен!");
-    });
-});
+  // Автоматическое скрытие через 5 секунд
+  setTimeout(() => {
+    if (notification.parentNode) {
+      notification.remove();
+    }
+  }, 5000);
+}
 
 // Функция для подсветки активной вкладки
 function highlightActiveNav() {
@@ -240,3 +258,65 @@ function highlightActiveNav() {
     activeLink.setAttribute("aria-current", "page");
   }
 }
+
+// Запускаем при загрузке страницы
+document.addEventListener("DOMContentLoaded", function () {
+  checkAuth();
+  highlightActiveNav();
+
+  // Назначаем обработчики форм
+  document
+    .getElementById("registerForm")
+    ?.addEventListener("submit", registerUser);
+  document.getElementById("loginForm")?.addEventListener("submit", loginUser);
+
+  // Обработчик формы смены пароля
+  document
+    .getElementById("passwordForm")
+    ?.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const currentPass = document.getElementById("currentPassword").value;
+      const newPass = document.getElementById("newPassword").value;
+      const confirmPass = document.getElementById("confirmPassword").value;
+
+      if (newPass !== confirmPass) {
+        showNotification("❌ Новые пароли не совпадают", "danger");
+        return;
+      }
+
+      if (newPass.length < 6) {
+        showNotification(
+          "❌ Пароль должен содержать минимум 6 символов",
+          "danger"
+        );
+        return;
+      }
+
+      if (changePassword(currentPass, newPass)) {
+        showNotification("✅ Пароль успешно изменен!", "success");
+        document.getElementById("passwordForm").reset();
+      } else {
+        showNotification("❌ Текущий пароль неверен", "danger");
+      }
+    });
+
+  // Обработчик формы профиля
+  document
+    .getElementById("profileForm")
+    ?.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const userData = JSON.parse(localStorage.getItem("currentUser"));
+      userData.name = document.getElementById("profileName").value;
+      userData.telegram = document.getElementById("profileTelegram").value;
+
+      localStorage.setItem("currentUser", JSON.stringify(userData));
+      localStorage.setItem("user_" + userData.email, JSON.stringify(userData));
+
+      // Обновляем навигацию
+      updateNavigation();
+
+      showNotification("✅ Профиль обновлен!", "success");
+    });
+});
